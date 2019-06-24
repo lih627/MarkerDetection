@@ -1,2 +1,2 @@
 # MarkerDetection
- A marker detector based on CenterNet in my project
+ Marker detector based on [CenterNet](https://github.com/xingyizhou/CenterNet) in my project. 
