@@ -286,5 +286,7 @@ def get_pose_net(num_layers, heads, head_conv=256):
   block_class, layers = resnet_spec[num_layers]
 
   model = PoseResNet(block_class, layers, heads, head_conv=head_conv)
-  model.init_weights(num_layers)
+  # Todo: don't have to load pre-trained models
+  # load the last model
+  # model.init_weights(num_layers)
   return model

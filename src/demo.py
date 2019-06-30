@@ -26,7 +26,8 @@ def demo(opt):
     detector.pause = False
     while True:
         _, img = cam.read()
-        cv2.imshow('input', img)
+        # cv2.imshow('input', img)
+        # img =cv2.resize(img,(640, 360))
         ret = detector.run(img)
         time_str = ''
         for stat in time_stats:
@@ -34,6 +35,7 @@ def demo(opt):
         print(time_str)
         if cv2.waitKey(1) == 27:
             return  # esc to quit
+
   else:
     if os.path.isdir(opt.demo):
       image_names = []
@@ -53,12 +55,12 @@ def demo(opt):
       results = []
       ret = ret['results'][1]
       for bbox in ret:
-          if bbox[4] > 0.3:
+          if bbox[4] > 0.1:
               results.append(bbox)
-      print(len(results)  )
-      print(time_str)
+      # print(len(results)  )
+      # print(time_str)
 if __name__ == '__main__':
-  opt = opts().init("--demo {} --load_model {} --arch {}".format("/home/lih/MarkerDataset/images",
-                                                                 "../models/model_last.pth",
+  opt = opts().init("--demo {} --load_model {} --arch {}" .format("/home/lih/MarkerDataset/images",
+                                                                 "../models/model_last_lr_2w5.pth",
                                                                  "resdcn_18").split(' '))
   demo(opt)

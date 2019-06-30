@@ -60,6 +60,17 @@ def convert(xml_list, xml_dir, json_file):
         ## The filename must be a number
         image_id = get_filename_as_int(filename)
         size = get_and_check(root, 'size', 1)
+        # LiH 2019
+        # If get(root, 'object') returns []
+        # it means that the xml file doesn't have object
+        # so don't use this xml to create json
+        if len(get(root, 'object')) is 0:
+            with open(os.path.join(os.path.dirname(xml_list),'except.txt'),'a+') as file:
+                file.write(filename)
+                file.write('\n')
+            continue
+        # print(get(root,'object'))
+
         width = int(get_and_check(size, 'width', 1).text)
         height = int(get_and_check(size, 'height', 1).text)
         image = {'file_name': filename, 'height': height, 'width': width,
@@ -123,6 +134,12 @@ if __name__ == '__main__':
                         help='Path/to/a/txt/file, from xml path to create xmllist.txt')
     parser.add_argument('--output_path',default='/home/lih/MarkerDataset/coco_output.json',
                         help='Path/to/coco_format/outputfile')
+    # parser.add_argument('--xml_path',default='/media/lih/LiH/DatasetToCheck/annotations1',
+    #                     help='path to pascal voc format xml list')
+    # parser.add_argument('--xml_list_path',default='//media/lih/LiH/DatasetToCheck/xmllist1.txt',
+    #                     help='Path/to/a/txt/file, from xml path to create xmllist.txt')
+    # parser.add_argument('--output_path',default='/media/lih/LiH/DatasetToCheck/coco_output.json',
+    #                     help='Path/to/coco_format/outputfile')
     args = parser.parse_args()
     xml_list_path = create_xml_list(args.xml_path, args.xml_list_path)
     # convert(sys.argv[1], sys.argv[2], sys.argv[3])

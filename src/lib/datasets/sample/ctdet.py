@@ -72,6 +72,9 @@ class CTDetDataset(data.Dataset):
     inp = cv2.warpAffine(img, trans_input, 
                          (input_w, input_h),
                          flags=cv2.INTER_LINEAR)
+    # Todo
+    # cv2.imshow('inp', inp)
+    # cv2.waitKey(1)
     inp = (inp.astype(np.float32) / 255.)
     if self.split == 'train' and not self.opt.no_color_aug:
       color_aug(self._data_rng, inp, self._eig_val, self._eig_vec)
@@ -96,9 +99,16 @@ class CTDetDataset(data.Dataset):
                     draw_umich_gaussian
 
     gt_det = []
+    # Todo 1
+    # print(img_path)
     for k in range(num_objs):
       ann = anns[k]
       bbox = self._coco_box_to_bbox(ann['bbox'])
+      #Todo 2
+      #tmp_id1 = ann['category_id']
+      #print(tmp_id1)
+      #tmp_id2 = self.cat_ids[tmp_id1]
+      #print(tmp_id2)
       cls_id = int(self.cat_ids[ann['category_id']])
       if flipped:
         bbox[[0, 2]] = width - bbox[[2, 0]] - 1

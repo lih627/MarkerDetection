@@ -3,7 +3,6 @@ from __future__ import division
 from __future__ import print_function
 
 import _init_paths
-
 import os
 
 import torch
@@ -63,6 +62,7 @@ def main(opt):
       drop_last=True
   )
 
+
   print('Starting training...')
   best = 1e10
   for epoch in range(start_epoch + 1, opt.num_epochs + 1):
@@ -98,5 +98,5 @@ def main(opt):
   logger.close()
 
 if __name__ == '__main__':
-  opt = opts().parse()
+  opt = opts().parse('--exp_id {} --batch_size {} --lr_step {}'.format("coco_resdcn18_2w5", 8, '3,6,10').split(' '))
   main(opt)

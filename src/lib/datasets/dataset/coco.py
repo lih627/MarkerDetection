@@ -12,7 +12,8 @@ import torch.utils.data as data
 
 class COCO(data.Dataset):
   num_classes = 1
-  default_resolution = [720, 1280]
+  # default_resolution = [720, 1280]
+  default_resolution = [360, 640]
   mean = np.array([0.40789654, 0.44719302, 0.47026115],
                    dtype=np.float32).reshape(1, 1, 3)
   std  = np.array([0.28863828, 0.27408164, 0.27809835],
